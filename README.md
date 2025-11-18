@@ -11,8 +11,47 @@
   PC Installed with SCILAB 
 
 # PROGRAM 
+~~~
+clc;
+clear;
+close;
 
+
+N = 51;                      
+fc = 0.4;                    
+n = 0:N-1;
+alpha = (N-1)/2;
+
+// Ideal High Pass Filter Impulse Response
+hd = -sin(2*%pi*fc*(n - alpha)) ./ (n - alpha);
+hd(alpha+1) = 1 - 2*fc;      
+
+w = 0.54 - 0.46*cos(2*%pi*n/(N-1));
+
+
+h = hd .* w;
+
+// Plot Impulse Response
+subplot(2,1,1);
+plot(n, h, 'r');
+xlabel('n');
+ylabel('h(n)');
+title('Impulse Response of FIR High Pass Filter using Hamming Window');
+grid on;
+
+
+[H, f] = frmag(h, 512);     
+subplot(2,1,2);
+plot(f, abs(H));
+xlabel('Normalized Frequency');
+ylabel('|H(f)|');
+title('Magnitude Response of FIR High Pass Filter');
+grid on;
+~~~
 
 # OUTPUT
+<img width="765" height="550" alt="Screenshot 2025-10-13 161842" src="https://github.com/user-attachments/assets/e42ef122-6173-4993-8ca4-c80d4c6f4c94" />
 
 # RESULT
+Thus, the High Pass FIR Digital Filter was successfully designed and implemented using the Hamming Window method in SCILAB.
+The impulse and magnitude responses were obtained and verified.
